@@ -1,3 +1,5 @@
+import crypto from "crypto";
+
 interface UserProps {
   name: string
   userName: string
