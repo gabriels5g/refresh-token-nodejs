@@ -17,6 +17,12 @@ export class SingUp {
   async execute(request: SingUpRequest): Promise<SingUpResponse> {
     const { name, userName, email, password } = request;
 
+    const userAlreadyExists = await this.userRepository.findByEmail(email);
+
+    if (userAlreadyExists) {
+      throw new Error("email already registered");
+    }
+
     const user = new User({
       name,
       userName,

@@ -14,15 +14,15 @@ export class User {
     return this._id;
   }
 
-  public name(): string {
+  public get name(): string {
     return this.props.name;
   }
 
-  public email(): string {
+  public get email(): string {
     return this.props.email;
   }
 
-  public password(): string {
+  public get password(): string {
     return this.props.password;
   }
 
