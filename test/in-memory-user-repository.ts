@@ -13,8 +13,7 @@ export class InMemoryUserRepository implements UserRepository {
 
     if (foundUser) {
       return foundUser;
-    } else {
-      return null;
     }
+    return null;
   }
 }

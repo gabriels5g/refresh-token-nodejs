@@ -14,7 +14,6 @@ describe("SignUp", () => {
       password: "Ga271200!",
     });
 
-    // Try to create another user with the same email
     await expect(
       createUser.execute({
         name: "user2",
