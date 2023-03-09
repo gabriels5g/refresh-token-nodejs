@@ -1,6 +1,6 @@
 import { AppError } from "../../../error/app-error";
-import { EmailValidator } from "../../../helpers/email-validator";
-import { PasswordValidator } from "../../../helpers/password-validator";
+import { EmailValidatorAdapter } from "../../../utils/email-validator";
+import { PasswordValidatorAdapter } from "../../../utils/password-validator";
 import { User } from "../../entities/user";
 import { UserRepository } from "../../repositories/user-repository";
 
@@ -19,8 +19,8 @@ export class SingUp {
   constructor(private userRepository: UserRepository) {}
   async execute(request: SingUpRequest): Promise<SingUpResponse> {
     const { name, userName, email, password } = request;
-    const emailValidator = new EmailValidator();
-    const passwordValidator = new PasswordValidator();
+    const emailValidator = new EmailValidatorAdapter();
+    const passwordValidator = new PasswordValidatorAdapter();
 
     const userAlreadyExists = await this.userRepository.findByEmail(email);
 
@@ -36,11 +36,11 @@ export class SingUp {
       throw new AppError("Email and/or password not provided", 400);
     }
 
-    if (!emailValidator.validate(email)) {
+    if (!emailValidator.isValid(email)) {
       throw new AppError("email format is invalid", 400);
     }
 
-    if (!passwordValidator.validate(password)) {
+    if (!passwordValidator.isValid(password)) {
       throw new AppError("password format is invalid", 400);
     }
 
