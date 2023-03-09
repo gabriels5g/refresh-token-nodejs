@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { PasswordValidatorAdapter } from "./password-validator";
 
-describe("EmailValidator Adapter", () => {
+describe("PasswordValidator Adapter", () => {
   it("should return false if the validator returns false", () => {
     const sut = new PasswordValidatorAdapter();
     const isValid = sut.isValid("password-invalid");
