@@ -12,7 +12,7 @@ interface SingUpRequest {
 }
 
 interface SingUpResponse {
-  user: Record<string, any>;
+  user: User;
 }
 
 export class SingUp {
@@ -26,6 +26,14 @@ export class SingUp {
 
     if (userAlreadyExists) {
       throw new AppError("email already registered", 400);
+    }
+
+    if (!password) {
+      throw new AppError("Email and/or password not provided", 400);
+    }
+
+    if (!email) {
+      throw new AppError("Email and/or password not provided", 400);
     }
 
     if (!emailValidator.validate(email)) {
