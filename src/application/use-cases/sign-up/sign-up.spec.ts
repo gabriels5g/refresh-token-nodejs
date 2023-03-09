@@ -51,4 +51,32 @@ describe("SignUp", () => {
       })
     ).rejects.toThrow("password format is invalid");
   });
+
+  it("should return error 400 if password not provided", async () => {
+    const userRepository = new InMemoryUserRepository();
+    const createUser = new SingUp(userRepository);
+
+    await expect(
+      createUser.execute({
+        name: "user4",
+        userName: "userName4",
+        email: "email1@example.com",
+        password: "",
+      })
+    ).rejects.toThrow("Email and/or password not provided");
+  });
+
+  it("should return error 400 if password not provided", async () => {
+    const userRepository = new InMemoryUserRepository();
+    const createUser = new SingUp(userRepository);
+
+    await expect(
+      createUser.execute({
+        name: "user4",
+        userName: "userName4",
+        email: "",
+        password: "example10-password",
+      })
+    ).rejects.toThrow("Email and/or password not provided");
+  });
 });
