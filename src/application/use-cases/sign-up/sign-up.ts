@@ -1,5 +1,6 @@
 import { AppError } from "../../../error/app-error";
 import { EmailValidator } from "../../../helpers/email-validator";
+import { PasswordValidator } from "../../../helpers/password-validator";
 import { User } from "../../entities/user";
 import { UserRepository } from "../../repositories/user-repository";
 
@@ -19,6 +20,7 @@ export class SingUp {
   async execute(request: SingUpRequest): Promise<SingUpResponse> {
     const { name, userName, email, password } = request;
     const emailValidator = new EmailValidator();
+    const passwordValidator = new PasswordValidator();
 
     const userAlreadyExists = await this.userRepository.findByEmail(email);
 
@@ -28,6 +30,10 @@ export class SingUp {
 
     if (!emailValidator.validate(email)) {
       throw new AppError("email format is invalid", 400);
+    }
+
+    if (!passwordValidator.validate(password)) {
+      throw new AppError("password format is invalid", 400);
     }
 
     const user = new User({
