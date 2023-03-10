@@ -10,7 +10,7 @@ describe("PasswordValidator Adapter", () => {
 
   it("should return true if the validator returns true", () => {
     const sut = new PasswordValidatorAdapter();
-    const isValid = sut.isValid("Password-invalid10");
+    const isValid = sut.isValid("Password-valid10");
     expect(isValid).toBe(true);
   });
 });
