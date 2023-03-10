@@ -1,15 +1,13 @@
 import fastify from "fastify";
+import { SignUpController } from "../src/controller/sign-up-controller";
+import { SignInController } from "./controller/sign-in-controller";
 
 const app = fastify();
 
-app.get("/", async (request, reply) => {
-  reply.send({ message: "Olá, mundo" });
-});
+const createUser = new SignUpController();
+const authUser = new SignInController();
+app.post("/user", createUser.execute);
 
-app.listen(3000, (err, address) => {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
-  console.log(`Servidor rodando em ${address}`);
-});
+app.post("/auth", authUser.handle);
+
+app.listen(3000);
