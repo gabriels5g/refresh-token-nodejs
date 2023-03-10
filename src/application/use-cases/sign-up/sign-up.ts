@@ -1,3 +1,4 @@
+import { hash } from "bcryptjs";
 import { AppError } from "../../../error/app-error";
 import { EmailValidatorAdapter } from "../../../utils/email-validator";
 import { PasswordValidatorAdapter } from "../../../utils/password-validator";
@@ -44,11 +45,12 @@ export class SingUp {
       throw new AppError("password format is invalid", 400);
     }
 
+    const passwordHash = await hash(password, 8);
     const user = new User({
       name,
       userName,
       email,
-      password,
+      password: passwordHash,
     });
 
     await this.userRepository.create(user);

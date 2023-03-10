@@ -16,4 +16,13 @@ export class InMemoryUserRepository implements UserRepository {
     }
     return null;
   }
+
+  async findByUser(email: string): Promise<User | null> {
+    const foundUser = this.users.find((user) => user.email === email);
+
+    if (foundUser) {
+      return foundUser;
+    }
+    return null;
+  }
 }
