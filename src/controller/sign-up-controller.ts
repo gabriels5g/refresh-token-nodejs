@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
 import { SingUp } from "../application/use-cases/sign-up/sign-up";
 import { PrismaRepository } from "../infra/database/repositories/prisma-repository";
 
