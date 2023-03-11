@@ -1,6 +1,9 @@
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { AppError } from "../../../error/app-error";
+import { prisma } from "../../../infra/database/repositories/prisma";
+import { GenerateRefreshToken } from "../../../provider/generate-refresh-token";
+import { GenerateTokenProvider } from "../../../provider/generate-token-provider";
 import { UserRepository } from "../../repositories/user-repository";
 
 interface SingInRequest {
@@ -25,19 +28,18 @@ export class SingIn {
       throw new AppError("email or password incorrect", 400);
     }
 
-    const token = sign({}, "6aec3a41-acdf-41f8-8ac2-96ff32988531", {
-      subject: user.id,
-      expiresIn: "20s",
-    });
+    const generateTokenProvider = new GenerateTokenProvider();
+    const token = await generateTokenProvider.execute(user.id)
 
-    const tokenReturn = {
-      user: {
-        name: user.name,
-        email: user.email,
-      },
-      token,
-    };
+    const generateRefreshToken = new GenerateRefreshToken();
 
-    return { tokenReturn };
+    await prisma.refreshToken.deleteMany({
+      where: {
+        userId: user.id,
+      }
+    })
+    const refreshToken = await generateRefreshToken.execute(user.id)
+
+    return { token, refreshToken };
   }
 }
