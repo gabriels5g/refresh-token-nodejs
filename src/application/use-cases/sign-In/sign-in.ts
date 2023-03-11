@@ -1,5 +1,4 @@
 import { compare } from "bcryptjs";
-import { sign } from "jsonwebtoken";
 import { AppError } from "../../../error/app-error";
 import { prisma } from "../../../infra/database/repositories/prisma";
 import { GenerateRefreshToken } from "../../../provider/generate-refresh-token";
