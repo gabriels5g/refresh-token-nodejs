@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { SingIn } from "../application/use-cases/SignIn/sign-in";
+import { SingIn } from "../application/use-cases/sign-In/sign-in";
 import { PrismaRepository } from "../infra/database/repositories/prisma-repository";
 
 export class SignInController {
