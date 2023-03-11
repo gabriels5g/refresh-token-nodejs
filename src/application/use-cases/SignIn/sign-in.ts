@@ -13,23 +13,31 @@ export class SingIn {
   async execute(request: SingInRequest) {
     const { email, password } = request;
 
-    const UserExists = await this.userRepository.findByUser(email);
+    const user = await this.userRepository.findByUser(email);
 
-    if (!UserExists) {
+    if (!user) {
       throw new AppError("email or password incorrect", 400);
     }
 
-    const passwordMatch = await compare(password, UserExists.password);
+    const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
       throw new AppError("email or password incorrect", 400);
     }
 
     const token = sign({}, "6aec3a41-acdf-41f8-8ac2-96ff32988531", {
-      subject: UserExists.id,
+      subject: user.id,
       expiresIn: "20s",
     });
 
-    return { token };
+    const tokenReturn = {
+      user: {
+        name: user.name,
+        email: user.email,
+      },
+      token,
+    };
+
+    return { tokenReturn };
   }
 }

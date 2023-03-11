@@ -4,14 +4,14 @@ import { prisma } from "./prisma";
 import { findByEmailResponse } from "./response";
 
 export class PrismaRepository implements UserRepository {
-  async create(user: User) {
+  async create({ id, name, userName, email, password }: User) {
     await prisma.user.create({
       data: {
-        id: user.id,
-        userName: user.name,
-        name: user.name,
-        email: user.email,
-        password: user.password,
+        id,
+        name,
+        userName,
+        email,
+        password,
       },
     });
   }

@@ -1,7 +1,8 @@
+import { findByEmailResponse } from "../../infra/database/repositories/response";
 import { User } from "../entities/user";
 
-export abstract class UserRepository {
-  abstract create(user: User): Promise<void>;
-  abstract findByEmail(email: string): Promise<User | null>;
-  abstract findByUser(email: string): Promise<User | null>;
+export interface UserRepository {
+  create(user: User): Promise<void>;
+  findByEmail(email: string): Promise<findByEmailResponse | null>;
+  findByUser(email: string): Promise<findByEmailResponse | null>;
 }

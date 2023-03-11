@@ -1,17 +1,20 @@
 import crypto from "crypto";
 
 interface UserProps {
-  name: string;
+  id?: string;
   userName: string;
+  name: string;
   email: string;
   password: string;
 }
 
 export class User {
-  private _id: string;
-
   public get id(): string {
-    return this._id;
+    return this.props.id;
+  }
+
+  public get userName(): string {
+    return this.props.userName;
   }
 
   public get name(): string {
@@ -21,12 +24,11 @@ export class User {
   public get email(): string {
     return this.props.email;
   }
-
   public get password(): string {
     return this.props.password;
   }
 
   constructor(private props: UserProps) {
-    this._id = crypto.randomUUID();
+    this.props.id = crypto.randomUUID();
   }
 }
