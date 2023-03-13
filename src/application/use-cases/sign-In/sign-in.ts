@@ -28,16 +28,15 @@ export class SingIn {
     }
 
     const generateTokenProvider = new GenerateTokenProvider();
-    const token = await generateTokenProvider.execute(user.id)
-
-    const generateRefreshToken = new GenerateRefreshToken();
+    const token = await generateTokenProvider.execute(user.id);
 
     await prisma.refreshToken.deleteMany({
       where: {
         userId: user.id,
-      }
-    })
-    const refreshToken = await generateRefreshToken.execute(user.id)
+      },
+    });
+    const generateRefreshToken = new GenerateRefreshToken();
+    const refreshToken = await generateRefreshToken.execute(user.id);
 
     return { token, refreshToken };
   }
