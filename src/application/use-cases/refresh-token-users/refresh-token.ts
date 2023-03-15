@@ -34,7 +34,7 @@ export class refreshToken {
         refreshToken.userId
       );
 
-      return { token, refreshToken: newRefreshToken };
+      return { token, refreshToken: newRefreshToken    };
     }
 
     return { token };

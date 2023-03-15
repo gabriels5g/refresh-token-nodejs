@@ -38,6 +38,14 @@ export class SingIn {
     const generateRefreshToken = new GenerateRefreshToken();
     const refreshToken = await generateRefreshToken.execute(user.id);
 
-    return { token, refreshToken };
+    const tokenReturn = {
+      token, user: {
+        name: user.name,
+        userName: user.userName,
+        email: user.email
+      }
+    }
+
+    return { refreshToken, Token: tokenReturn  };
   }
 }
