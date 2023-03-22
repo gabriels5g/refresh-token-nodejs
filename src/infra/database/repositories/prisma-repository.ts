@@ -28,10 +28,10 @@ export class PrismaRepository implements UserRepository {
     return userAlreadyExist;
   }
 
-  async findByUser(email: string): Promise<findByEmailResponse | null> {
+  async findByUser(userName: string): Promise<findByEmailResponse | null> {
     const userAlreadyExist = await prisma.user.findFirst({
       where: {
-        email,
+        userName,
       },
     });
 

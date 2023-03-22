@@ -15,7 +15,7 @@ export class SingIn {
   async execute(request: SingInRequest) {
     const { email, password } = request;
 
-    const user = await this.userRepository.findByUser(email);
+    const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
       throw new AppError("email or password incorrect", 400);
@@ -42,12 +42,12 @@ export class SingIn {
       user: {
         name: user.name,
         userName: user.userName,
-        email: user.email
+        email: user.email,
       },
       refreshToken,
-      token, 
-    }
+      token,
+    };
 
-    return { tokenReturn  };
+    return { tokenReturn };
   }
 }

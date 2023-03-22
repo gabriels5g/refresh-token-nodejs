@@ -11,7 +11,7 @@ export class refreshToken {
         id: refresh_token,
       },
     });
-    if (!refreshToken) {
+    if (!refreshToken) {  
       throw new AppError("refresh token invalid", 400);
     }
 

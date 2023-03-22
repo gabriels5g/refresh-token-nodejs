@@ -6,8 +6,7 @@ export function ensureAuthenticated(
   response: Response,
   next: NextFunction
 ) {
-  const authToken = request.headers.authorization
-
+  const authToken = request.headers.authorization;
 
   if (!authToken) {
     return response.status(401).json({
@@ -15,12 +14,11 @@ export function ensureAuthenticated(
     });
   }
 
-
-
   const [, token] = authToken.split(" ");
 
   try {
     verify(token, "6aec3a41-acdf-41f8-8ac2-96ff32988531");
+
     return next();
   } catch (err) {
     return response.status(401).json({

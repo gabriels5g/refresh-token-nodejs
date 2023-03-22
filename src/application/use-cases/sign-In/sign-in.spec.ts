@@ -15,12 +15,12 @@ describe("SignIn", () => {
       email: "user@example.com",
       password: "Example10-password",
     });
+    
 
     const result = await authenticateUser.execute({
       email: "user@example.com",
       password: "Example10-password",
     });
-
     expect(result).toHaveProperty("token");
   });
 
