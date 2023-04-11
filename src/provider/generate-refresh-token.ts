@@ -1,25 +1,22 @@
-import { prisma } from "../infra/database/repositories/prisma"
-import  dayjs  from "dayjs"
-import { AppError } from "../error/app-error"
-
+import { prisma } from "../infra/database/repositories/prisma";
+import dayjs from "dayjs";
+import { AppError } from "../error/app-error";
 
 export class GenerateRefreshToken {
   async execute(userId: string) {
-
     try {
-      const expiresIn = dayjs().add(30, "minutes").unix()
+      const expiresIn = dayjs().add(60, "minutes").unix();
 
       const generateRefreshToken = await prisma.refreshToken.create({
         data: {
           userId,
-          expiresIn,        
-        }
-      })
-  
-      return generateRefreshToken
-      
+          expiresIn,
+        },
+      });
+
+      return generateRefreshToken;
     } catch (error) {
-      throw new AppError("error", 400)
+      throw new AppError("error", 400);
     }
   }
 }
